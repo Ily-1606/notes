@@ -1,0 +1,153 @@
+* Ôn tập mật mã học
+** 2 Lý thuyết số
+*** Tính GCD
+    - The greatest common divisor of a and b is the
+      largest integer that divides both a and b
+    - We can use the notation gcd(a,b) to mean the
+      greatest common divisor of a and b
+    - We also define gcd(0,0) = 0 
+    - Positive integer c is said to be the gcd of a and b if:
+      1. c is a divisor of a and b
+      2. Any divisor of a and b is a divisor of c
+    - An equivalent definition is:
+      gcd(a,b) = max[k, such that k | a and k | b]
+    - Because we require that the greatest common divisor be
+      positive, gcd(a,b) = gcd(a,-b) = gcd(-a,b) = gcd(-a,-b)
+    - In general, gcd(a,b) = gcd(| a |, | b |)
+      gcd(60, 24) = gcd(60, - 24) = 12
+    - Also, because all nonzero integers divide 0, we have
+      gcd(a,0) = | a |
+    - We stated that two integers a and b are relatively prime if
+      their only common positive integer factor is 1; this is
+      equivalent to saying that a and b are relatively prime if
+      gcd(a,b) = 1
+      8 and 15 are relatively prime because the positive divisors of 8 are 1, 2, 4, and 8, and
+      the positive divisors of 15 are 1, 3, 5, and 15. So 1 is the only integer on both lists.
+    - Thuật toán euclid tìm gcd
+      1. q = r1 / r2 (lớn chia nhỏ) 
+      2. Nếu dư thì ta lấy r2 chia cho số dư, làm như vậy tới khi số dư bằng 0 -> dừng
+      3. r2 trong phép chia hết cuối cùng chính là -> gcd
+*** Modular
+    - Congruent modulo n
+      - Two integers a and b are said to be congruent
+      modulo n if (a mod n) = (b mod n)
+      - This is written as a = b(mod n)2
+      - Note that if a = 0(mod n), then n | a
+        VD: 73 = 4 (mod 23); 21 = - 9 (mod 10)
+        VD: 73 = 23*3+4, 4 = 23*0+4 => 73=4(mod 23)
+    - Congruences have the following properties:
+      1. a = b (mod n) if n (a – b)
+      2. a = b (mod n) implies b = a (mod n)
+         VD: 73=4(mod23) implies 4=73(mod23)
+      3. a = b (mod n) and b = c (mod n) imply a = c(mod n)
+         VD: 73=4(mod23) and 4=27(mod23) -> 73=27(mod23)
+    - To demonstrate the first point, if n (a - b), then (a - b)= kn for some k
+      - So we can write a = b + kn
+      - Therefore, (a mod n) = (remainder when b + kn is divided by
+        n) = (remainder when b is divided by n) = (b mod n)
+        ex: 23 = 8 (mod 5) because 23 - 8 = 15 = 5 * 3
+        -11 = 5 (mod 8) because - 11 - 5 = - 16 = 8 * (- 2)
+        81 = 0 (mod 27) because 81 - 0 = 81 = 27 * 3
+    - Modular arithmetic exhibits the following properties:
+      1. [(a mod n) + (b mod n)] mod n = (a + b) mod n
+         vd: 11 mod 8 = 3; 15 mod 8 = 7
+            [(11 mod 8) + (15 mod 8)] mod 8 = 10 mod 8 = 2
+            (11 + 15) mod 8 = 26 mod 8 = 2
+      2. [(a mod n) - (b mod n)] mod n = (a - b) mod n
+         vd: [(11 mod 8) - (15 mod 8)] mod 8 = - 4 mod 8 = 4
+            (11 - 15) mod 8 = - 4 mod 8 = 4
+      3. [(a mod n) * (b mod n)] mod n = (a * b) mod n
+          vd: [(11 mod 8) * (15 mod 8)] mod 8 = 21 mod 8 = 5
+            (11 * 15) mod 8 = 165 mod 8 = 5
+      => có +,-,* not for /
+    - We demonstrate the first property:
+      - Define (a mod n) = ra and (b mod n) = rb
+        Then we can write a = ra + jn for
+        some integer j and b = rb + kn for some integer k
+      - Then:
+        (a + b) mod n = (ra + jn + rb + kn) mod n
+                      = (ra + rb + (k + j)n) mod n
+                      = (ra + rb) mod n
+                      = [(a mod n) + (b mod n)] mod n
+    - (0 * 0) mod 8 = 0
+    - a mod 8 = a (a<8)
+    - (a + -a) mod 8 = 0
+    - (a * a^-1) mod 8 = 1 
+*** Số nguyên tố -> Thuật toán để xác định số nguyên tố
+    - Số nguyên tố là số chia hết cho 1 và chính nó
+*** Định lý Fermat's / Euler's 
+    - Fermat's
+      Định lý Fermat, hay Định lý Fermat về số nguyên tố, nói rằng nếu p là một số nguyên tố và a là một số nguyên không chia hết cho p, thì a^(p-1) ≡ 1 (mod p).
+      Ví dụ, hãy xem xét số nguyên tố p = 7 và số nguyên a = 2. Áp dụng Định lý Fermat, ta có:
+      2^(7-1) ≡ 2^6 ≡ 64 ≡ 1 (mod 7).
+      - Nếu p là một số nguyên tố và a là số nguyên dương thì: 
+        a^p ≡ a (mod p) 
+    - Euler's
+      - Định lý Euler phát biểu rằng nếu n là số nguyên dương bất kỳ và a là số nguyên tố cùng nhau với n, thì
+      a^φ(n) = 1(mod n)
+      - Nếu n là một số nguyên tố thì φ(n) = n-1     
+      - a^φ(n) = a(mod n) 
+** 4 Block Cipher(Mã khối)
+*** DES: nguyên lý, S-Box, P-Box
+    - Nguyên lý:
+      Nguyên lý của DES (Data Encryption Standard) trong mật mã học là sử dụng một thuật toán mã hóa đối xứng để mã hóa và giải mã các khối dữ liệu có kích thước cố định. DES sử dụng một khối dữ liệu 64-bit và một khóa mã hóa 56-bit.
+
+      Nguyên lý chính của DES được mô tả dưới đây:
+
+      Khóa mở rộng (Key Expansion): Khóa mã hóa ban đầu có kích thước 56-bit được mở rộng thành một chuỗi 64-bit bằng cách thêm các bit kiểm soát. Quá trình này nhằm tạo ra các khóa con sẽ được sử dụng trong quá trình mã hóa.
+
+      Mã hóa (Encryption): Khối dữ liệu 64-bit được chia thành hai nửa 32-bit (phải và trái). Quá trình mã hóa gồm 16 vòng lặp tương tự nhau.
+
+      a. Quá trình hoán vị ban đầu (Initial Permutation): Các bit trong mỗi nửa khối dữ liệu được hoán vị theo một bảng chuẩn để tạo ra một sắp xếp ban đầu.
+
+      b. Vòng lặp (Round): Mỗi vòng lặp gồm các bước thay thế (substitution) và hoán vị (permutation). Bước thay thế sử dụng các hộp thay thế S-boxes để ánh xạ một số bit đầu vào thành một số bit đầu ra khác. Bước hoán vị thực hiện các phép hoán vị bit trên các nửa khối dữ liệu.
+
+      c. Hoán vị cuối cùng (Final Permutation): Sau 16 vòng lặp, nửa phải và nửa trái của khối dữ liệu được hoán vị cho nhau để tạo ra khối dữ liệu đã mã hóa.
+
+      Giải mã (Decryption): Quá trình giải mã DES sử dụng cùng một thuật toán và khóa như quá trình mã hóa, chỉ khác là các khóa con được sử dụng theo thứ tự ngược lại.
+
+      Nguyên lý của DES trong mật mã học là sử dụng các hoán vị và thay thế để tạo ra một quá trình phức tạp và không thể đảo ngược một cách dễ dàng. Điều này làm cho việc giải mã khối dữ liệu mã hóa mà không có khóa rất khó khăn và đòi hỏi phải biết khóa chính xác.
+
+    - S-Box: 
+      S-boxes (Substitution boxes) là một phần quan trọng của thuật toán mã hóa DES (Data Encryption Standard) trong mật mã học. DES sử dụng tám S-boxes, mỗi S-box có kích thước 4x16 (4 dòng và 16 cột) và được sử dụng trong quá trình mã hóa DES để thay thế các bit đầu vào bằng các bit đầu ra khác.
+
+      Các S-boxes trong DES được xác định trước và được sử dụng để tạo ra sự không tương đồng trong quá trình thay thế bit, nhằm tăng tính phức tạp và độ khó của quá trình mã hóa và giải mã. Mỗi S-box nhận 6 bit đầu vào và trả về 4 bit đầu ra.
+
+      Cách hoạt động của một S-box trong DES như sau:
+
+        1. Sử dụng 6 bit đầu vào (6-bit input) làm địa chỉ để xác định dòng và cột trong S-box.
+
+        2. 4 bit đầu ra (4-bit output) tương ứng với dòng và cột được lấy từ S-box.
+
+      S-boxes được xác định bằng cách sử dụng bảng xáo trộn (lookup table) có sẵn. Những bảng xáo trộn này được thiết kế một cách cẩn thận để tạo ra sự phi tuyến tính trong quá trình thay thế, làm cho việc phục hồi thông tin ban đầu từ kết quả mã hóa rất khó khăn mà không biết khóa chính xác.
+
+      Tổng cộng, DES sử dụng tám S-boxes với mỗi S-box đóng vai trò trong một vòng lặp của quá trình mã hóa. Các S-boxes là một thành phần quan trọng của DES và đóng góp vào tính phức tạp và hiệu quả của thuật toán mã hóa DES.
+
+    - P-Box: 
+      Trong thuật toán mã hóa DES (Data Encryption Standard) của mật mã học, P-box (Permutation box) là một phần quan trọng được sử dụng để thực hiện các phép hoán vị trên khối dữ liệu trong quá trình mã hóa và giải mã.
+
+      P-box trong DES là một hoán vị không xáo trộn, được sử dụng để tái sắp xếp các bit của khối dữ liệu đầu vào. Mục đích của P-box là đảm bảo sự phân tán và độ không tương đồng của dữ liệu trong quá trình mã hóa.
+
+      P-box trong DES có kích thước 32-bit và mỗi bit đầu ra của P-box được xác định dựa trên vị trí của nó trong khối dữ liệu đầu vào. Mỗi bit trong khối dữ liệu đầu vào sẽ được đặt vào một vị trí cụ thể trong khối dữ liệu đầu ra theo một bảng hoán vị cố định.
+
+      Quá trình hoán vị của P-box trong DES được thực hiện theo các bước sau:
+
+        1. Khối dữ liệu đầu vào 32-bit được chia thành 4 nửa, mỗi nửa có kích thước 8-bit.
+
+        2. Mỗi bit trong mỗi nửa khối dữ liệu được đặt vào một vị trí cụ thể trong khối dữ liệu đầu ra 32-bit dựa trên bảng hoán vị của P-box.
+
+        3. Kết quả là một khối dữ liệu đầu ra 32-bit đã được hoán vị.
+
+      P-box trong DES đảm bảo rằng các bit đầu vào của mỗi nửa khối dữ liệu sẽ được phân tán và kết hợp lại một cách không tương đồng trong quá trình mã hóa và giải mã. Điều này tăng tính phức tạp và độ không tương đồng của thuật toán DES.
+
+      P-box là một phần quan trọng của quá trình hoạt động của DES và đóng góp vào tính phức tạp và hiệu quả của thuật toán mã hóa DES.
+** 6 advanced encryption  
+*** AES: nguyên lý, S-Box, P-Box
+    - Nguyên lý: 
+** 5 GF(2)
+*** Các phép toán +,-,*,/, nghịch đảo, bù
+** 9 Thuật toán RSA
+*** Các phép toán +,-,*,/
+** 11 Hàm băm
+*** Đặc điểm
+*** Cách tạo
