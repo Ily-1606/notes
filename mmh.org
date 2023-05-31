@@ -1,5 +1,7 @@
 * Ôn tập mật mã học
+
 ** 2 Lý thuyết số
+
 *** Tính GCD
     - The greatest common divisor of a and b is the
       largest integer that divides both a and b
@@ -27,6 +29,7 @@
       1. q = r1 / r2 (lớn chia nhỏ) 
       2. Nếu dư thì ta lấy r2 chia cho số dư, làm như vậy tới khi số dư bằng 0 -> dừng
       3. r2 trong phép chia hết cuối cùng chính là -> gcd
+
 *** Modular
     - Congruent modulo n
       - Two integers a and b are said to be congruent
@@ -73,8 +76,10 @@
     - a mod 8 = a (a<8)
     - (a + -a) mod 8 = 0
     - (a * a^-1) mod 8 = 1 
+
 *** Số nguyên tố -> Thuật toán để xác định số nguyên tố
     - Số nguyên tố là số chia hết cho 1 và chính nó
+
 *** Định lý Fermat's / Euler's 
     - Fermat's
       Định lý Fermat, hay Định lý Fermat về số nguyên tố, nói rằng nếu p là một số nguyên tố và a là một số nguyên không chia hết cho p, thì a^(p-1) ≡ 1 (mod p).
@@ -87,7 +92,9 @@
       a^φ(n) = 1(mod n)
       - Nếu n là một số nguyên tố thì φ(n) = n-1     
       - a^φ(n) = a(mod n) 
+
 ** 4 Block Cipher(Mã khối)
+
 *** DES: nguyên lý, S-Box, P-Box
     - Nguyên lý:
       Nguyên lý của DES (Data Encryption Standard) trong mật mã học là sử dụng một thuật toán mã hóa đối xứng để mã hóa và giải mã các khối dữ liệu có kích thước cố định. DES sử dụng một khối dữ liệu 64-bit và một khóa mã hóa 56-bit.
@@ -141,13 +148,96 @@
       P-box trong DES đảm bảo rằng các bit đầu vào của mỗi nửa khối dữ liệu sẽ được phân tán và kết hợp lại một cách không tương đồng trong quá trình mã hóa và giải mã. Điều này tăng tính phức tạp và độ không tương đồng của thuật toán DES.
 
       P-box là một phần quan trọng của quá trình hoạt động của DES và đóng góp vào tính phức tạp và hiệu quả của thuật toán mã hóa DES.
+
 ** 6 advanced encryption  
+
 *** AES: nguyên lý, S-Box, P-Box
     - Nguyên lý: 
+      Nguyên lý AES (Advanced Encryption Standard) trong mật mã học là sử dụng một thuật toán mã hóa đối xứng để mã hóa và giải mã các khối dữ liệu có kích thước cố định. AES được xem là một trong những thuật toán mã hóa mạnh nhất và được sử dụng rộng rãi trong các ứng dụng bảo mật.
+
+      Nguyên lý chính của AES được mô tả dưới đây:
+
+      1. Độ dài khóa: AES hỗ trợ ba độ dài khóa khác nhau, bao gồm 128-bit, 192-bit và 256-bit. Khóa được chọn trước quá trình mã hóa và giải mã và cần được bảo mật cẩn thận.
+
+      2. Phân chia khối dữ liệu: Dữ liệu cần mã hóa được chia thành các khối có kích thước cố định (thường là 128-bit).
+
+      3. Quá trình mã hóa (Encryption Rounds): AES sử dụng một số vòng lặp mã hóa, số lượng vòng lặp phụ thuộc vào độ dài khóa. Trong mỗi vòng lặp, một số phép biến đổi được áp dụng lên khối dữ liệu để tạo ra sự phức tạp và độ không tương đồng trong quá trình mã hóa.
+
+      4. Phép biến đổi SubBytes: Trong quá trình này, các byte trong khối dữ liệu được thay thế bằng các byte khác thông qua một phép thay thế phi tuyến tính sử dụng S-boxes.
+
+      5. Phép biến đổi ShiftRows: Trong quá trình này, các byte trong các hàng của khối dữ liệu được dịch chuyển sang trái.
+
+      6. Phép biến đổi MixColumns: Trong quá trình này, các cột của khối dữ liệu được biến đổi thông qua một phép nhân ma trận.
+
+      7. Phép biến đổi AddRoundKey: Trong quá trình này, mỗi byte trong khối dữ liệu được kết hợp với một khóa con tương ứng.
+
+      8. Quá trình mã hóa kết thúc sau khi thực hiện số vòng lặp mã hóa tương ứng với độ dài khóa.
+
+      Quá trình giải mã AES được thực hiện bằng cách áp dụng các phép biến đổi ngược lại trên khối dữ liệu đã được mã hóa với cùng một khóa.
+
+
+      AES được coi là một thuật toán mã hóa mạnh, với tính bền vững cao và khả năng chống các cuộc tấn công thông qua việc sử dụng các phép biến đổi phức tạp và khóa dài.
+
+    - S-Box:
+      Trong AES (Advanced Encryption Standard), S-boxes (Substitution boxes) là một phần quan trọng của quá trình mã hóa và giải mã. AES sử dụng S-boxes để thay thế các giá trị byte trong quá trình mã hóa và giải mã.
+
+      S-boxes trong AES có kích thước 16x16 (16 dòng và 16 cột) và được xác định trước. Mỗi byte đầu vào trong quá trình mã hóa hoặc giải mã sẽ được chia thành hai phần: 4 bit cao và 4 bit thấp. Phần 4 bit cao được sử dụng để xác định dòng trong S-box, trong khi phần 4 bit thấp được sử dụng để xác định cột. Giá trị byte tương ứng trong S-box sẽ được lấy làm giá trị thay thế.
+
+      S-boxes trong AES được thiết kế một cách cẩn thận để đảm bảo tính phi tuyến tính và khó khăn trong việc phục hồi thông tin ban đầu từ kết quả mã hóa. Các giá trị trong S-boxes là kết quả của các phép biến đổi phi tuyến tính, như phép nhân ma trận và phép cộng modulo, nhằm đạt được độ không tương đồng và độ không tuyến tính trong quá trình thay thế.
+
+      S-boxes trong AES đóng vai trò quan trọng trong việc đánh tan tính đều đặn và tương quan của dữ liệu, đồng thời làm tăng độ phức tạp và khó khăn của quá trình mã hóa và giải mã. Sự chọn lựa cẩn thận và tính phi tuyến tính của S-boxes trong AES là một yếu tố quan trọng giúp tăng cường tính bảo mật của thuật toán.
+
+    - P-Box
+      Trong AES (Advanced Encryption Standard), không có P-box như trong DES. P-box là một phần của thuật toán DES (Data Encryption Standard) và không được sử dụng trong AES.
+
+      Trong AES, quá trình biến đổi được thực hiện bằng cách sử dụng các phép biến đổi đơn giản như SubBytes, ShiftRows, MixColumns và AddRoundKey. Khối dữ liệu được chia thành các byte và các phép biến đổi được áp dụng trên từng byte riêng lẻ.
+
+      SubBytes: Trong quá trình này, mỗi byte trong khối dữ liệu được thay thế bằng một giá trị thay thế từ S-box. S-boxes trong AES là các bảng thay thế được xác định trước và đóng vai trò quan trọng trong việc tạo sự phi tuyến tính và độ không tương đồng.
+
+      ShiftRows: Trong quá trình này, các byte trong các hàng của khối dữ liệu được dịch chuyển sang trái. Quá trình này tạo ra sự phân tán dữ liệu và đóng góp vào tính phi tuyến tính của AES.
+
+      MixColumns: Trong quá trình này, các cột của khối dữ liệu được biến đổi thông qua một phép nhân ma trận. Điều này tạo ra sự phức tạp và khó khăn trong việc phục hồi thông tin ban đầu từ kết quả mã hóa.
+
+      AddRoundKey: Trong quá trình này, mỗi byte trong khối dữ liệu được kết hợp với một khóa con tương ứng.
+
+      Quá trình giải mã AES được thực hiện bằng cách áp dụng các phép biến đổi ngược lại trên khối dữ liệu đã được mã hóa với cùng một khóa.
+
+      Trong tổng thể, AES sử dụng một loạt các phép biến đổi đơn giản và hiệu quả để tạo ra tính phức tạp và bảo mật. Tuy không có P-box như trong DES, AES vẫn đạt được một mức độ bảo mật cao và được sử dụng rộng rãi trong các ứng dụng mật mã hóa.
+
 ** 5 GF(2)
 *** Các phép toán +,-,*,/, nghịch đảo, bù
+
 ** 9 Thuật toán RSA
 *** Các phép toán +,-,*,/
+
 ** 11 Hàm băm
 *** Đặc điểm
+    
+  Hàm băm (hash function) trong mật mã học có những đặc điểm chính sau:
+
+  - Đầu vào độc lập: Hàm băm nhận đầu vào có kích thước bất kỳ và độc lập với đầu vào khác. Một thay đổi nhỏ trong đầu vào sẽ dẫn đến sự thay đổi đáng kể trong giá trị băm đầu ra.
+
+  - Đầu ra có kích thước cố định: Hàm băm cho ra kết quả với kích thước đầu ra cố định, bất kể kích thước đầu vào. Ví dụ, hàm băm SHA-256 luôn cho ra kết quả có kích thước 256 bit.
+
+  - Không thể phục hồi ngược: Không thể phục hồi ngược giá trị đầu vào ban đầu từ giá trị băm đầu ra. Điều này đảm bảo tính an toàn của hàm băm, nghĩa là người dùng không thể khôi phục lại thông tin gốc từ giá trị băm.
+
+  - Kháng va chạm: Hàm băm phải có tính kháng va chạm, nghĩa là rất khó để tìm hai đầu vào khác nhau cho ra cùng một giá trị băm. Tuy nhiên, trong thực tế, việc tìm một va chạm (hai đầu vào cho ra cùng một giá trị băm) không thể tránh khỏi, nhưng nó phải rất khó khăn và thời gian tìm kiếm va chạm phải rất lớn.
+
+  - Phát tán đều: Hàm băm phải phân tán đều các giá trị băm trên không gian đầu vào. Điều này đảm bảo rằng một thay đổi nhỏ trong đầu vào sẽ dẫn đến một thay đổi lớn và ngẫu nhiên trong giá trị băm.
+
+  - Hiệu suất cao: Hàm băm phải được tính toán nhanh chóng và hiệu quả, đặc biệt là trong các ứng dụng mật mã hóa thời gian thực và xử lý lượng dữ liệu lớn.
+
+  Đặc điểm này là một số tiêu chí cơ bản cho các hàm băm an toàn và được sử dụng rộng rãi trong các ứng dụng mật mã hóa, như xác thực mật khẩu, chứng chỉ số, chữ ký số và bảo mật thông tin.
+    
 *** Cách tạo
+    Có nhiều cách để tạo hàm băm, nhưng ở đây tôi sẽ giới thiệu một phương pháp phổ biến là sử dụng các hàm băm dựa trên khối (block-based hash functions), như MD5, SHA-1 hoặc SHA-256. Dưới đây là các bước cơ bản để tạo hàm băm sử dụng các hàm băm dựa trên khối:
+
+    - Chuẩn bị đầu vào: Chuyển đổi đầu vào của bạn thành một định dạng có thể được xử lý bởi hàm băm. Đối với các hàm băm dựa trên khối, đầu vào thường được chia thành các khối có kích thước cố định (ví dụ: 512 bit cho SHA-512). Nếu đầu vào không phù hợp với kích thước khối, hãy thêm các bit mở rộng hoặc thực hiện bước mã hóa đặc biệt (ví dụ: MD5 sử dụng một bước gọi "padding").
+
+    - Xử lý các khối đầu vào: Áp dụng hàm băm dựa trên khối lên từng khối đầu vào theo thứ tự. Trong quá trình này, các phép biến đổi đặc biệt được áp dụng trên các khối để tạo ra kết quả băm. Các phép biến đổi bao gồm các phép cộng, phép xoay, phép XOR và các hàm phi tuyến.
+
+    - Kết hợp các kết quả băm: Khi đã xử lý tất cả các khối đầu vào, các kết quả băm từ từng khối được kết hợp lại để tạo thành giá trị băm cuối cùng. Cách kết hợp có thể là một phép XOR, phép cộng modulo hoặc các phép toán khác tùy thuộc vào thuật toán cụ thể.
+
+    - Trả về giá trị băm: Kết quả cuối cùng của quá trình là giá trị băm của đầu vào ban đầu.
+
+    Lưu ý rằng các hàm băm dựa trên khối có các thuộc tính bảo mật khác nhau và đang trải qua quá trình tiến hóa. Vì vậy, nếu bạn đang tạo một hàm băm mới, hãy tìm hiểu về các thuật toán hàm băm hiện có và xem xét các yêu cầu bảo mật và hiệu suất của ứng dụng của bạn để chọn thuật toán phù hợp.
