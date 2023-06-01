@@ -3,74 +3,62 @@
 ** 2 Lý thuyết số
 
 *** Tính GCD
-    - The greatest common divisor of a and b is the
-      largest integer that divides both a and b
-    - We can use the notation gcd(a,b) to mean the
-      greatest common divisor of a and b
-    - We also define gcd(0,0) = 0 
-    - Positive integer c is said to be the gcd of a and b if:
-      1. c is a divisor of a and b
-      2. Any divisor of a and b is a divisor of c
-    - An equivalent definition is:
-      gcd(a,b) = max[k, such that k | a and k | b]
-    - Because we require that the greatest common divisor be
-      positive, gcd(a,b) = gcd(a,-b) = gcd(-a,b) = gcd(-a,-b)
-    - In general, gcd(a,b) = gcd(| a |, | b |)
+    - ước chung lớn nhất của a và b là số nguyên lớn nhất chia hết cho cả a và b
+    - Chúng ta có thể sử dụng ký hiệu gcd(a,b) để chỉ ước chung lớn nhất của a và b
+    - Chúng tôi cũng xác định gcd(0,0) = 0
+    - Số nguyên dương c được gọi là gcd của a và b nếu:
+      1. c là ước của a và b
+      2. Mọi ước của a và b đều là ước của c
+    - Một định nghĩa tương đương là:
+      gcd(a,b) = max[k, sao cho k | a và k| b]
+    - Vì chúng ta yêu cầu ước số chung lớn nhất phải là số dương nên gcd(a,b) = gcd(a,-b) = gcd(-a,b) = gcd(-a,-b)
+    - Nói chung, gcd(a,b) = gcd(| a |, | b |)
       gcd(60, 24) = gcd(60, - 24) = 12
-    - Also, because all nonzero integers divide 0, we have
-      gcd(a,0) = | a |
-    - We stated that two integers a and b are relatively prime if
-      their only common positive integer factor is 1; this is
-      equivalent to saying that a and b are relatively prime if
-      gcd(a,b) = 1
-      8 and 15 are relatively prime because the positive divisors of 8 are 1, 2, 4, and 8, and
-      the positive divisors of 15 are 1, 3, 5, and 15. So 1 is the only integer on both lists.
+    - Ngoài ra, vì tất cả các số nguyên khác 0 chia hết cho 0, nên chúng ta có gcd(a,0) = | a |
+    - Ta đã phát biểu rằng hai số nguyên a và b là nguyên tố cùng nhau nếu ước chung duy nhất của chúng là 1; điều này tương đương với việc nói rằng a và b là nguyên tố cùng nhau nếu gcd(a,b) = 1 8 và 15 nguyên tố cùng nhau vì các ước dương của 8 là 1, 2, 4 và 8, và các ước dương của 15 là 1, 3, 5 và 15. Vậy 1 là số nguyên duy nhất trong cả hai danh sách.
     - Thuật toán euclid tìm gcd
       1. q = r1 / r2 (lớn chia nhỏ) 
       2. Nếu dư thì ta lấy r2 chia cho số dư, làm như vậy tới khi số dư bằng 0 -> dừng
       3. r2 trong phép chia hết cuối cùng chính là -> gcd
 
 *** Modular
-    - Congruent modulo n
-      - Two integers a and b are said to be congruent
+    - đồng dư modulo n
+      - Hai số nguyên a và b được gọi là bằng nhau
       modulo n if (a mod n) = (b mod n)
-      - This is written as a = b(mod n)2
+      - Điều này được viết là a = b(mod n)2
       - Note that if a = 0(mod n), then n | a
-        VD: 73 = 4 (mod 23); 21 = - 9 (mod 10)
-        VD: 73 = 23*3+4, 4 = 23*0+4 => 73=4(mod 23)
-    - Congruences have the following properties:
+        - VD: 73 = 4 (mod 23); 21 = - 9 (mod 10)
+        - VD: 73 = 23*3+4, 4 = 23*0+4 => 73=4(mod 23)
+    - Đồng dư có các tính chất sau:
       1. a = b (mod n) if n (a – b)
-      2. a = b (mod n) implies b = a (mod n)
-         VD: 73=4(mod23) implies 4=73(mod23)
+      2. a = b (mod n) ngụ ý b = a (mod n)
+         - VD: 73=4(mod23) ngụ ý 4=73(mod23)
       3. a = b (mod n) and b = c (mod n) imply a = c(mod n)
-         VD: 73=4(mod23) and 4=27(mod23) -> 73=27(mod23)
-    - To demonstrate the first point, if n (a - b), then (a - b)= kn for some k
-      - So we can write a = b + kn
-      - Therefore, (a mod n) = (remainder when b + kn is divided by
-        n) = (remainder when b is divided by n) = (b mod n)
-        ex: 23 = 8 (mod 5) because 23 - 8 = 15 = 5 * 3
-        -11 = 5 (mod 8) because - 11 - 5 = - 16 = 8 * (- 2)
-        81 = 0 (mod 27) because 81 - 0 = 81 = 27 * 3
-    - Modular arithmetic exhibits the following properties:
+        - VD: 73=4(mod23) and 4=27(mod23) -> 73=27(mod23)
+    - Để chứng minh điểm đầu tiên, nếu n (a - b), thì (a - b)= kn với một số k
+      - Vì vậy, chúng ta có thể viết a = b + kn
+      - Do đó, (a mod n) = (số dư khi b + kn chia cho n) = (số dư khi b chia cho n) = (b mod n) ví dụ: 23 = 8 (mod 5) vì 23 - 8 = 15 = 5 * 3 -11 = 5 (mod 8) vì - 11 - 5 = - 16 = 8 * (- 2) 81 = 0 (mod 27) vì 81 - 0 = 81 = 27 * 3
+    - Số đồng dư thể hiện các thuộc tính sau:
       1. [(a mod n) + (b mod n)] mod n = (a + b) mod n
-         vd: 11 mod 8 = 3; 15 mod 8 = 7
+         - vd: 11 mod 8 = 3; 15 mod 8 = 7
             [(11 mod 8) + (15 mod 8)] mod 8 = 10 mod 8 = 2
             (11 + 15) mod 8 = 26 mod 8 = 2
       2. [(a mod n) - (b mod n)] mod n = (a - b) mod n
-         vd: [(11 mod 8) - (15 mod 8)] mod 8 = - 4 mod 8 = 4
+         - vd: [(11 mod 8) - (15 mod 8)] mod 8 = - 4 mod 8 = 4
             (11 - 15) mod 8 = - 4 mod 8 = 4
       3. [(a mod n) * (b mod n)] mod n = (a * b) mod n
-          vd: [(11 mod 8) * (15 mod 8)] mod 8 = 21 mod 8 = 5
+          - vd: [(11 mod 8) * (15 mod 8)] mod 8 = 21 mod 8 = 5
             (11 * 15) mod 8 = 165 mod 8 = 5
       => có +,-,* not for /
-    - We demonstrate the first property:
-      - Define (a mod n) = ra and (b mod n) = rb
-        Then we can write a = ra + jn for
-        some integer j and b = rb + kn for some integer k
-      - Then:
+    - Ta chứng minh tính chất đầu tiên:
+      - Define (a mod n) = ra và (b mod n) = rb Sau đó, chúng ta có thể viết a = ra + jn cho một số nguyên j và b = rb + kn cho một số nguyên k
+      - Khi đó:
         (a + b) mod n = (ra + jn + rb + kn) mod n
+        
                       = (ra + rb + (k + j)n) mod n
+                      
                       = (ra + rb) mod n
+                      
                       = [(a mod n) + (b mod n)] mod n
     - (0 * 0) mod 8 = 0
     - a mod 8 = a (a<8)
