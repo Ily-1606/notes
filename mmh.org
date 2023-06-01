@@ -93,6 +93,33 @@
       - Nếu n là một số nguyên tố thì φ(n) = n-1     
       - a^φ(n) = a(mod n) 
 
+*** ECC
+    Giả sử chúng ta có một đường cong elliptic trên trường số nguyên modulo 17 (trường F17) với phương trình y^2 = x^3 + 2x + 2. Các phép toán trong ECC trên đường cong này sẽ được thực hiện trên các điểm có tọa độ nguyên trên đường cong elliptic.
+
+    Phép toán cộng điểm (P + Q):
+
+    Cho điểm P(5, 1) và điểm Q(6, 3) trên đường cong elliptic.
+    Thực hiện phép toán cộng điểm:
+    Tính gradient (độ dốc) của đường thẳng đi qua P và Q: m = (y2 - y1) / (x2 - x1) = (3 - 1) / (6 - 5) = 2.
+    Tính tọa độ x3 của điểm P + Q: x3 = m^2 - x1 - x2 = 2^2 - 5 - 6 = 3.
+    Tính tọa độ y3 của điểm P + Q: y3 = m(x1 - x3) - y1 = 2(5 - 3) - 1 = 3.
+    Kết quả của phép toán cộng điểm P + Q là điểm R(3, 3) trên đường cong elliptic.
+    Phép toán nhân điểm (kP):
+
+    Cho điểm P(5, 1) trên đường cong elliptic và số nguyên k = 3.
+    Thực hiện phép toán nhân điểm:
+    Thực hiện phép toán cộng điểm lặp lại: 3P = P + P + P.
+    Tính 2P: 2P = P + P = R1(3, 3).
+    Tính 3P: 3P = 2P + P = R1(3, 3) + P = R2(1, 0).
+    Kết quả của phép toán nhân điểm 3P là điểm R2(1, 0) trên đường cong elliptic.
+    Phép toán đảo điểm (-P):
+
+    Cho điểm P(5, 1) trên đường cong elliptic.
+    Thực hiện phép toán đảo điểm:
+    Đảo dấu tọa độ y của P: -P = (5, -1).
+    Kết quả của phép toán đảo điểm -P là điểm (-P)(5, -1) trên đường cong elliptic.
+    Trên đây là một ví dụ cụ thể về cách thực hiện các phép toán trong ECC trên một đường cong elliptic cụ thể. Trường hợp này chỉ là một ví d
+
 ** 4 Block Cipher(Mã khối)
 
 *** DES: nguyên lý, S-Box, P-Box
@@ -206,9 +233,64 @@
 
 ** 5 GF(2)
 *** Các phép toán +,-,*,/, nghịch đảo, bù
+    - Trong đại số trường Galois GF(2), còn được gọi là trường nhị phân, chỉ có hai phần tử là 0 và 1. Trường Galois GF(2) có các phép toán cộng, trừ và nhân nhưng không có phép chia.
+
+    Các phép toán trong trường Galois GF(2) được xác định như sau:
+
+    Phép toán cộng (+):
+
+    0 + 0 = 0
+    0 + 1 = 1
+    1 + 0 = 1
+    1 + 1 = 0
+    Phép toán trừ (-) tương đương với phép toán cộng:
+
+    0 - 0 = 0
+    0 - 1 = 1
+    1 - 0 = 1
+    1 - 1 = 0
+    Phép toán nhân (*):
+
+    0 * 0 = 0
+    0 * 1 = 0
+    1 * 0 = 0
+    1 * 1 = 1
+    Phép toán chia (/):
+    Trong trường Galois GF(2), phép toán chia không tồn tại vì không thể chia cho 0.
+
+    Ví dụ:
+
+    1 + 1 = 0 (vì 1 + 1 = 2, nhưng trong trường Galois GF(2) chỉ có hai phần tử 0 và 1, nên kết quả là 0)
+    1 * 1 = 1
+    1 - 1 = 0
+    Lưu ý rằng trong trường Galois GF(2), các phép toán cộng, trừ và nhân được thực hiện modulo 2, nghĩa là kết quả chỉ có thể là 0 hoặc 1.
 
 ** 9 Thuật toán RSA
 *** Các phép toán +,-,*,/
+    - Bước 1: Tạo khóa
+
+    Chọn hai số nguyên tố lớn: p = 17 và q = 11.
+    Tính n = p * q = 17 * 11 = 187.
+    Tính hàm Euler's totient của n: φ(n) = (p - 1) * (q - 1) = 16 * 10 = 160.
+    Chọn một số nguyên e thỏa mãn 1 < e < φ(n) và gcd(e, φ(n)) = 1. Chẳng hạn, chọn e = 7 làm khóa công khai.
+    Tìm số d sao cho (d * e) % φ(n) = 1. Giải phương trình 7d % 160 = 1, ta có d = 23 làm khóa bí mật.
+
+    Bước 2: Mã hoá
+
+    Chọn một tin nhắn để mã hoá. Ví dụ, chọn m = 88.
+    Mã hoá tin nhắn bằng cách sử dụng khóa công khai (e, n): c = m^e mod n.
+    => c = 88^7 mod 187 = 11.
+
+    Bước 3: Giải mã
+
+    Giải mã mã hoá bằng cách sử dụng khóa bí mật (d, n): m = c^d mod n.
+    => m = 11^23 mod 187 = 88.
+    Kết quả:
+
+    Tin nhắn ban đầu là 88.
+    Mã hoá tin nhắn (ciphertext) là 11.
+    Giải mã tin nhắn (plaintext) là 88.
+    Trên đây là một ví dụ đơn giản về cách tính RSA trong quá trình mã hoá và giải mã. Trong thực tế, các giá trị p, q, e và d được chọn rất lớn và phức tạp hơn để đảm bảo tính bảo mật của hệ thống RSA.
 
 ** 11 Hàm băm
 *** Đặc điểm
@@ -241,3 +323,247 @@
     - Trả về giá trị băm: Kết quả cuối cùng của quá trình là giá trị băm của đầu vào ban đầu.
 
     Lưu ý rằng các hàm băm dựa trên khối có các thuộc tính bảo mật khác nhau và đang trải qua quá trình tiến hóa. Vì vậy, nếu bạn đang tạo một hàm băm mới, hãy tìm hiểu về các thuật toán hàm băm hiện có và xem xét các yêu cầu bảo mật và hiệu suất của ứng dụng của bạn để chọn thuật toán phù hợp.
+
+
+
+** ĐỀ CHATGPT :)) 
+Câu 1:
+Giải thích sự khác nhau giữa thuật toán đối xứng và thuật toán không đối xứng trong mật mã học. Đưa ra ví dụ cụ thể cho mỗi loại thuật toán và giải thích cách sử dụng chúng trong các ứng dụng bảo mật thông tin.
+
+Câu 2:
+Hãy mô tả thuật toán RSA và cách nó hoạt động trong mật mã học. Giải thích ý nghĩa của khóa công khai và khóa bí mật trong thuật toán RSA và cách chúng được tạo ra.
+
+Câu 3:
+Mô tả quá trình mã hóa và giải mã trong thuật toán AES. Đưa ra ví dụ cụ thể về quá trình mã hóa và giải mã bằng AES và giải thích các bước và phương pháp sử dụng khóa bí mật để thực hiện quá trình này.
+
+Câu 4:
+Trình bày về các kỹ thuật bảo mật thông tin trong mật mã học. Đưa ra ví dụ về một kỹ thuật bảo mật thông tin như chữ ký số (digital signature), mã hóa đối xứng (symmetric encryption) hoặc băm (hashing) và giải thích cách nó đóng góp vào việc bảo vệ thông tin.
+
+Câu 5:
+Tìm hiểu về các cuộc tấn công phổ biến trong mật mã học như tấn công brute-force, tấn công từ chối dịch vụ (DoS), tấn công phân tích bên kênh (side-channel attack) và tấn công đoán ngữ cảnh (plaintext attack). Đưa ra ví dụ và mô tả cách thức tấn công và cách ngăn chặn các cuộc tấn công này.
+
+
+Tính toán Modular Arithmetic:
+a) Tính giá trị của (17^23) mod 11.
+b) Tìm số nguyên dương nhỏ nhất x sao cho (17x) mod 11 = 1.
+        a) Để tính giá trị của (17^23) mod 11, ta sẽ áp dụng tính toán modular arithmetic:
+
+        17^23 mod 11 = (17 mod 11)^23 mod 11
+
+        Vì 17 mod 11 = 6, ta có:
+
+        (17^23) mod 11 = (6^23) mod 11
+
+        Bây giờ, chúng ta sẽ tính (6^23) mod 11 bằng cách lặp lại phép nhân và lấy modulo:
+
+        (6^23) mod 11 = 6 * (6^22) mod 11
+
+        Tiếp tục lặp lại quá trình này, chúng ta có:
+
+        (6^23) mod 11 = 6 * [(6^21) mod 11] mod 11
+        = 6 * [(6^20) mod 11] mod 11
+        = 6 * [(6^19) mod 11] mod 11
+        = ...
+        = 6 * [(6^2) mod 11] mod 11
+
+        Tiếp tục lặp lại:
+
+        (6^23) mod 11 = 6 * [36 mod 11] mod 11
+        = 6 * 3 mod 11
+        = 18 mod 11
+        = 7
+
+        Vậy, giá trị của (17^23) mod 11 là 7.
+
+        b) Để tìm số nguyên dương nhỏ nhất x sao cho (17x) mod 11 = 1, chúng ta sẽ áp dụng lại tính toán modular arithmetic:
+
+        17x mod 11 = 1
+
+        Ta sẽ thử các giá trị x từ 1 trở đi cho đến khi tìm được kết quả.
+
+        x = 1: 171 mod 11 = 17 mod 11 = 6 (không thoả mãn)
+        x = 2: 172 mod 11 = 34 mod 11 = 1 (thoả mãn)
+
+        Vậy, số nguyên dương nhỏ nhất x sao cho (17x) mod 11 = 1 là 2.
+
+
+*** Tính toán trong RSA:
+a) Cho trước hai số nguyên tố p = 17 và q = 23. Tính giá trị của n, φ(n), và tìm khóa công khai (e) và khóa bí mật (d) trong thuật toán RSA.
+b) Cho trước thông điệp m = 9 và khóa công khai (n, e) = (391, 3) trong thuật toán RSA. Hãy mã hóa thông điệp bằng cách tính (m^e) mod n.
+
+  a) Để tính giá trị của n và φ(n) và tìm khóa công khai (e) và khóa bí mật (d) trong thuật toán RSA với hai số nguyên tố p = 17 và q = 23, ta có các bước sau:
+
+    Tính giá trị của n: n = p * q = 17 * 23 = 391.
+
+    Tính giá trị của φ(n): φ(n) = (p - 1) * (q - 1) = 16 * 22 = 352.
+
+    Chọn một số nguyên e thỏa mãn các điều kiện sau:
+
+    1 < e < φ(n).
+    e và φ(n) là các số nguyên tố cùng nhau (không có ước chung ngoài 1).
+    Một giá trị phổ biến cho e là 65537 (2^16 + 1), nhưng trong ví dụ này chúng ta sẽ sử dụng e = 3 để đơn giản hóa tính toán.
+    Tìm khóa bí mật d, sao cho (e * d) mod φ(n) = 1.
+
+    Để tìm d, chúng ta có thể sử dụng thuật toán mở rộng Euclid hoặc thuật toán Euclid tiêu chuẩn mở rộng để tính toán d.
+    Trong ví dụ này, sử dụng thuật toán Euclid mở rộng, ta có: d ≡ e^(-1) (mod φ(n)).
+    Tính d = 235.
+    Vậy, giá trị của n là 391, φ(n) là 352, khóa công khai (e) là 3 và khóa bí mật (d) là 235.
+
+    b) Để mã hóa thông điệp m = 9 bằng cách tính (m^e) mod n, với thông số khóa công khai (n, e) = (391, 3), ta thực hiện các bước sau:
+
+    (m^e) mod n = (9^3) mod 391
+
+    Áp dụng tính toán modular:
+
+    9^3 mod 391 = (9^2 * 9) mod 391 = ((9^2 mod 391) * (9 mod 391)) mod 391
+
+    Tiếp tục tính toán:
+
+    9^2 mod 391 = 81 mod 391 = 81
+    9 mod 391 = 9
+
+    Thay vào công thức:
+
+    ((9^2 mod 391) * (9 mod 391)) mod 391 = (81 * 9) mod 391 = 729 mod 391 = 337
+
+    Vậy, sau khi mã hóa, giá trị của thông điệp m = 9 là 337.
+
+
+*** Tính toán trong ECC (Elliptic Curve Cryptography):
+a) Cho trước một đường cong elliptic trên trường hữu hạn và một điểm P trên đường cong. Tìm điểm Q = kP, trong đó k là một số nguyên dương.
+b) Cho trước một đường cong elliptic, tìm điểm P sao cho nP = O, trong đó n là một số nguyên dương và O là điểm vô hướng trên đường cong.
+ a) Để tính điểm Q = kP trên một đường cong elliptic trên trường hữu hạn, ta sử dụng phép nhân điểm của đường cong elliptic. Các bước thực hiện như sau:
+
+  Chọn một điểm P trên đường cong elliptic.
+
+  Lặp lại quá trình sau k lần:
+
+  Thực hiện phép cộng điểm giữa điểm Q hiện tại và P.
+  Gán k = k - 1.
+  Sau khi lặp lại quá trình trên k lần, điểm Q sẽ là kP.
+
+  Lưu ý rằng trong quá trình tính toán, ta cần tuân thủ các quy tắc phép cộng điểm trên đường cong elliptic, bao gồm xác định phép cộng giữa hai điểm khác nhau và phép cộng của một điểm với chính nó.
+
+  b) Để tìm điểm P sao cho nP = O trên một đường cong elliptic, ta cần tìm điểm có tính chất là n là bội của số điểm P trên đường cong. Các bước thực hiện như sau:
+
+  Chọn một điểm P bất kỳ trên đường cong elliptic.
+
+  Lặp lại quá trình sau cho đến khi nP = O:
+
+  Thực hiện phép cộng điểm giữa điểm P hiện tại và P.
+  Gán P = P + P.
+  Sau khi lặp lại quá trình trên, điểm P sẽ thỏa mãn tính chất nP = O, trong đó n là số nguyên dương nào đó.
+
+  Lưu ý rằng trong quá trình tính toán, ta cần tuân thủ các quy tắc phép cộng điểm trên đường cong elliptic, bao gồm xác định phép cộng giữa hai điểm khác nhau và phép cộng của một điểm với chính nó. 
+
+
+*** Tính toán trong hàm băm:
+a) Cho trước một hàm băm có đầu vào là một chuỗi bit và đầu ra là một giá trị hash có độ dài 256 bit. Tính giá trị hash cho một thông điệp cụ thể.
+b) Tìm một collision trong một hàm băm cụ thể, tức là tìm hai thông điệp khác nhau có cùng giá trị hash.
+  
+  a) Để tính giá trị hash cho một thông điệp cụ thể sử dụng một hàm băm có đầu ra là một giá trị hash 256 bit, ta áp dụng thuật toán hàm băm đó trên thông điệp đó. Mỗi thuật toán hàm băm có cách thức cụ thể, nhưng cơ bản chúng thực hiện các phép biến đổi trên thông điệp để tạo ra giá trị hash. Dưới đây là một ví dụ sử dụng hàm băm SHA-256:
+
+  Thông điệp cần băm: "Hello, World!"
+
+  Bước 1: Chuẩn bị thông điệp: Chuyển đổi thông điệp thành chuỗi bit hoặc khối bit phù hợp để phù hợp với kích thước đầu vào của hàm băm. Trong trường hợp của SHA-256, thông điệp được chuyển đổi thành chuỗi bit có độ dài phù hợp.
+
+  Bước 2: Áp dụng thuật toán hàm băm: Áp dụng thuật toán SHA-256 trên chuỗi bit của thông điệp. Thuật toán sẽ thực hiện các phép biến đổi phức tạp để tính toán giá trị hash.
+
+  Bước 3: Nhận kết quả: Kết quả của thuật toán hàm băm là một giá trị hash 256 bit. Đây là giá trị băm của thông điệp cụ thể.
+
+  Ví dụ:
+  Thông điệp: "Hello, World!"
+  Giá trị hash (SHA-256): 109abea04a139ef5d63be6096828f6bc5f6b09cd1aebf2dc607ebba53ce33b3a
+
+  b) Tìm collision trong một hàm băm cụ thể, tức là tìm hai thông điệp khác nhau có cùng giá trị hash, là một nhiệm vụ khó và phụ thuộc vào độ dài của giá trị hash và chất lượng của hàm băm. Mục đích của việc tìm collision là tìm hai thông điệp mà chúng cho cùng một giá trị hash, ngay cả khi các thông điệp này khác nhau.
+
+  Tuy nhiên, trong hầu hết các hàm băm an toàn hiện đại như SHA-256, việc tìm collision là rất khó và tốn nhiều thời gian tính toán. Các hàm băm được thiết kế để chống lại việc tìm collision bằng cách tạo ra giá trị hash ngẫu nhiên, và việc tìm collision được coi là không thực tế trong thực tế.
+
+  Việc tìm collision trong một hàm băm cụ thể đòi
+
+
+
+*** Câu hỏi: Giả sử bạn có một thông điệp cần mã hoá sử dụng thuật toán RSA với các giá trị khóa công khai (e, n) là (13, 77) và khóa bí mật (d, n) là (37, 77). Thực hiện mã hoá thông điệp "HELLO" bằng cách sử dụng khóa công khai và cho biết kết quả sau khi mã hoá.
+
+    Đáp án:
+
+    Chuyển đổi thông điệp thành số nguyên dựa trên bảng mã ASCII: "H" = 72, "E" = 69, "L" = 76, "L" = 76, "O" = 79.
+    Áp dụng thuật toán mã hoá RSA bằng cách sử dụng khóa công khai:
+    Mã hoá ký tự "H": c = m^e mod n = 72^13 mod 77 = 35.
+    Mã hoá ký tự "E": c = m^e mod n = 69^13 mod 77 = 46.
+    Mã hoá ký tự "L": c = m^e mod n = 76^13 mod 77 = 57.
+    Mã hoá ký tự "L": c = m^e mod n = 76^13 mod 77 = 57.
+    Mã hoá ký tự "O": c = m^e mod n = 79^13 mod 77 = 36.
+    Kết quả sau khi mã hoá là: 35, 46, 57, 57, 36.
+    Lưu ý rằng trong ví dụ này, tôi sử dụng giá trị khóa công khai (e, n) và thực hiện phép tính mã hoá RSA để mã hoá thông điệp "HELLO". Tuy nhiên, để hoàn thành bài toán mã hoá RSA, chúng ta cần sử dụng phép toán mũ modulo và thuật toán tính modulo.
+
+
+*** Asymmetric algorithm
+    Asymmetric Algorithm (giải thuật bất đối xứng) là một phương pháp mã hóa trong mật mã học, nơi hai khóa riêng biệt được sử dụng: một khóa công khai (public key) để mã hóa dữ liệu và một khóa bí mật (private key) để giải mã dữ liệu. Dưới đây là một ví dụ về tính toán trong một thuật toán bất đối xứng, ví dụ như RSA (Rivest-Shamir-Adleman):
+
+    Tạo khóa và mã hóa:
+    a) Chọn hai số nguyên tố p và q, ví dụ: p = 17, q = 23.
+    b) Tính giá trị n = p * q, trong trường hợp này: n = 391.
+    c) Tính giá trị φ(n) = (p - 1) * (q - 1), trong trường hợp này: φ(n) = 352.
+    d) Chọn một số nguyên e sao cho 1 < e < φ(n) và gcd(e, φ(n)) = 1, ví dụ: e = 3. Đây là khóa công khai.
+    e) Tính giá trị d sao cho (d * e) mod φ(n) = 1, ví dụ: d = 235. Đây là khóa bí mật.
+
+    Mã hóa thông điệp:
+    a) Chọn một thông điệp m, ví dụ: m = 9.
+    b) Mã hóa thông điệp bằng cách tính c = (m^e) mod n, trong trường hợp này: c = (9^3) mod 391 = 262.
+
+    Giải mã thông điệp:
+    a) Giải mã thông điệp bằng cách tính m = (c^d) mod n, trong trường hợp này: m = (262^235) mod 391 = 9.
+
+    Kết quả là thông điệp ban đầu m = 9 được mã hóa thành c = 262 và được giải mã trở lại thành m = 9. Quá trình mã hóa và giải mã trong thuật toán bất đối xứng RSA được thực hiện thông qua các phép toán mũ modulo và dựa trên tính toán trong lĩnh vực số học modulô.
+
+*** Symmetric Algorithm
+    Symmetric Algorithm (giải thuật đối xứng) là một phương pháp mã hóa trong mật mã học, nơi cùng một khóa được sử dụng để mã hóa và giải mã dữ liệu. Dưới đây là một ví dụ về tính toán trong một thuật toán đối xứng, ví dụ như AES (Advanced Encryption Standard):
+
+    Khởi tạo khóa và thông điệp:
+    a) Chọn một khóa kích thước thích hợp, ví dụ như 128-bit hoặc 256-bit.
+    b) Chọn một thông điệp cần mã hóa, ví dụ như một chuỗi bit hoặc một khối dữ liệu.
+
+    Mã hóa thông điệp:
+    a) Chia thông điệp thành các khối dữ liệu cùng kích thước.
+    b) Áp dụng phép mã hóa đối xứng trên từng khối dữ liệu sử dụng khóa đã cho.
+    c) Lặp lại quá trình mã hóa trên tất cả các khối dữ liệu cho đến khi tất cả các khối đã được mã hóa.
+
+    Giải mã thông điệp:
+    a) Áp dụng phép giải mã đối xứng trên từng khối dữ liệu đã mã hóa sử dụng cùng khóa.
+    b) Lặp lại quá trình giải mã trên tất cả các khối dữ liệu cho đến khi tất cả các khối đã được giải mã.
+
+    Quá trình mã hóa và giải mã trong Symmetric Algorithm sử dụng các phép biến đổi và phép hoán vị trên dữ liệu để tạo ra dữ liệu mã hóa và giải mã. Để đảm bảo tính bảo mật của thuật toán, việc chọn khóa và việc thực hiện các phép biến đổi cần tuân theo các quy tắc và thuật toán cụ thể của mỗi giải thuật đối xứng, ví dụ như AES.
+
+
+*** AES
+    Thuật toán RSA (Rivest-Shamir-Adleman) là một thuật toán mã hóa bất đối xứng được sử dụng trong mật mã học. Nó dựa trên khó khăn của bài toán phân tích số nguyên tố lớn và tính toán các phép mũ modulo. Dưới đây là mô tả thuật toán RSA và cách nó hoạt động:
+
+    Khởi tạo khóa:
+    a) Chọn hai số nguyên tố lớn p và q.
+    b) Tính n = p * q, n là một số nguyên dương lớn được gọi là module.
+    c) Tính φ(n) = (p - 1) * (q - 1), φ(n) là số các số nguyên tố nhỏ hơn n và nguyên tố cùng nhau với n.
+    d) Chọn một số nguyên e sao cho 1 < e < φ(n) và gcd(e, φ(n)) = 1. Đây là khóa công khai.
+    e) Tìm d, số nguyên dương thỏa mãn (d * e) mod φ(n) = 1. Đây là khóa bí mật.
+
+    Mã hóa:
+    a) Chọn một thông điệp m để mã hóa, m là một số nguyên.
+    b) Tính c = (m^e) mod n, c là giá trị mã hóa của thông điệp m. Giá trị c này có thể được chuyển qua kênh không an toàn.
+
+    Giải mã:
+    a) Nhận được giá trị mã hóa c.
+    b) Tính m = (c^d) mod n, m là thông điệp gốc. Giá trị m này chỉ có thể được giải mã thành công bởi người có khóa bí mật.
+
+    Ý nghĩa của khóa công khai và khóa bí mật trong thuật toán RSA:
+
+    Khóa công khai (public key): Được sử dụng để mã hóa thông điệp. Nó có thể được công khai cho mọi người, không gây nguy cơ bảo mật. Bất kỳ ai cũng có thể sử dụng khóa công khai để mã hóa thông điệp, nhưng chỉ người có khóa bí mật tương ứng mới có thể giải mã.
+
+    Khóa bí mật (private key): Được sử dụng để giải mã thông điệp. Khóa bí mật chỉ được biết đến bởi người nhận, không được tiết lộ cho người khác. Chỉ người nắm giữ khóa bí mật mới có thể giải mã các thông điệp đã được mã hóa bằng khóa công khai.
+
+    Quá trình tạo ra khóa công khai và khóa bí mật trong RSA:
+
+    Chọn hai số nguyên tố lớn p và q.
+    Tính n = p * q và φ(n) = (p - 1) * (q - 1).
+    Chọn một số nguyên e thỏa mãn 1 < e < φ(n) và gcd(e, φ(n)) = 1. Đây là khóa công khai (n, e).
+    Tìm số nguyên d thỏa mãn (d * e) mod φ(n) = 1. Đây là khóa bí mật (n, d).
+    Quá trình tạo khóa bí mật đòi hỏi tính toán ngược lại từ khóa công khai và số nguyên tố p, q, mà việc tính toán ngược lại này khó khăn và tốn thời gian đối với người khác. Điều này giúp bảo vệ tính bí mật của khóa bí mật và đảm bảo tính bất đối xứng của thuật toán RSA.
